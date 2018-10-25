@@ -435,7 +435,6 @@ public class Analyzador extends javax.swing.JFrame {
             String c = cad.substring(i, i + 1);
             if (esOp(c) == -1) {
                 pal += c;
-                System.out.println("c " + c + " pal " + pal);
             } else if (Grafos.esEntero(pal)) {
                 O[0] = pal;
                 O[1] = "Entero";
