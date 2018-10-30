@@ -1,4 +1,6 @@
 
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +10,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JInternalFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Highlighter;
@@ -43,12 +48,13 @@ public class Analyzador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
-        btnAnalizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         pnlPrincipal = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblToken = new javax.swing.JTable();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         pnlArbol = new javax.swing.JPanel();
+        jInternalFrame2 = new javax.swing.JInternalFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtEditor = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -59,26 +65,15 @@ public class Analyzador extends javax.swing.JFrame {
         btnGuardarComo = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
         mnuAnalizar = new javax.swing.JMenu();
+        btnAna = new javax.swing.JMenuItem();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jToolBar1.setRollover(true);
-
-        btnAnalizar.setText("Analizar");
-        btnAnalizar.setFocusable(false);
-        btnAnalizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAnalizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAnalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnalizarActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnAnalizar);
-
-        getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 20));
-
+        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 51));
         pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblToken.setModel(new javax.swing.table.DefaultTableModel(
@@ -91,22 +86,20 @@ public class Analyzador extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblToken);
 
-        pnlPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 160, 350));
+        pnlPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 160, 500));
+
+        jDesktopPane1.setOpaque(false);
+        pnlPrincipal.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 640, 430));
 
         pnlArbol.setBorder(javax.swing.BorderFactory.createTitledBorder("Arbol Sintactico"));
+        pnlArbol.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout pnlArbolLayout = new javax.swing.GroupLayout(pnlArbol);
-        pnlArbol.setLayout(pnlArbolLayout);
-        pnlArbolLayout.setHorizontalGroup(
-            pnlArbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
-        );
-        pnlArbolLayout.setVerticalGroup(
-            pnlArbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
-        );
+        jInternalFrame2.setBorder(null);
+        jInternalFrame2.setOpaque(true);
+        jInternalFrame2.setVisible(true);
+        pnlArbol.add(jInternalFrame2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 430));
 
-        pnlPrincipal.add(pnlArbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        pnlPrincipal.add(pnlArbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 640, 430));
 
         txtEditor.setColumns(20);
         txtEditor.setRows(5);
@@ -117,9 +110,11 @@ public class Analyzador extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtEditor);
 
-        pnlPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 400, 160));
+        pnlPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 610, 50));
 
-        getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 620, 420));
+        getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 830, 550));
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 102, 102));
 
         jMenu1.setText("File");
 
@@ -166,16 +161,26 @@ public class Analyzador extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         mnuAnalizar.setText("Analizar");
+        mnuAnalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAnalizarActionPerformed(evt);
+            }
+        });
+
+        btnAna.setText("Analizar");
+        btnAna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnaActionPerformed(evt);
+            }
+        });
+        mnuAnalizar.add(btnAna);
+
         jMenuBar1.add(mnuAnalizar);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
-        analizar(txtEditor.getText());
-    }//GEN-LAST:event_btnAnalizarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (a != null && e == true) {
@@ -202,7 +207,7 @@ public class Analyzador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtEditorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEditorKeyPressed
-                if (Character.isDefined(evt.getKeyChar())) {
+        if (Character.isDefined(evt.getKeyChar())) {
             e = true;
         }
         Highlighter h = txtEditor.getHighlighter();
@@ -210,7 +215,7 @@ public class Analyzador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEditorKeyPressed
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-       if (a != null && e == true) {
+        if (a != null && e == true) {
             Object[] opciones = {"Guardar", "No guardar", "Cancelar"};
             int eleccion = JOptionPane.showOptionDialog(this, "Quieres guardar los cambios en " + getTitle(), "Mensaje de Confirmacion",
                     JOptionPane.YES_NO_OPTION,
@@ -274,13 +279,11 @@ public class Analyzador extends javax.swing.JFrame {
         } catch (IOException ex) {
             javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
-       
-
         c = false;
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-           if (a == null) {
+        if (a == null) {
             guardarComo();
             return;
         }
@@ -288,8 +291,8 @@ public class Analyzador extends javax.swing.JFrame {
         e = false;
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void guardarComo(){
-          try {
+    private void guardarComo() {
+        try {
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
                     "Analizador", "anl");
@@ -314,7 +317,7 @@ public class Analyzador extends javax.swing.JFrame {
         }
     }
     private void btnGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarComoActionPerformed
-         guardarComo();
+        guardarComo();
     }//GEN-LAST:event_btnGuardarComoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -346,7 +349,39 @@ public class Analyzador extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnSalirActionPerformed
-    
+
+    private void mnuAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAnalizarActionPerformed
+        analizar(txtEditor.getText());
+                try {
+          //  String dato = Integer.parseInt(JOptionPane.showInputDialog("Digite dato String para insertar:"));
+              String dato = txtEditor.getText();
+            if (this.simulador.insertar(dato)) {
+                JOptionPane.showMessageDialog(null, "Se ha agregado el dato! (:", " ...", 1);
+                
+                
+                complementos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo insertar el dato", "Intenta de nuevo...", 0);
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuAnalizarActionPerformed
+
+    private void btnAnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnaActionPerformed
+        analizar(txtEditor.getText());
+                try {
+          //  String dato = Integer.parseInt(JOptionPane.showInputDialog("Digite dato String para insertar:"));
+              String dato = txtEditor.getText();
+            if (this.simulador.insertar(dato)) {
+                JOptionPane.showMessageDialog(null, "Insertado correctamente", " ...", 1); 
+                complementos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo insertar el dato", "Intenta de nuevo...", 0);
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnaActionPerformed
+
     private void guardar() {
         if (a != null) {
             try {
@@ -371,11 +406,11 @@ public class Analyzador extends javax.swing.JFrame {
                             "Analizador", "anl");
                     chooser.setFileFilter(filter);
                     chooser.setDialogTitle("Guardar");
-                    chooser.setSelectedFile(new File(getTitle() ));
+                    chooser.setSelectedFile(new File(getTitle()));
                     int returnVal = chooser.showSaveDialog(this);
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
                         File archivo = chooser.getSelectedFile();
-                        java.io.FileWriter tw = new java.io.FileWriter(archivo+".anl");
+                        java.io.FileWriter tw = new java.io.FileWriter(archivo + ".anl");
                         tw.write(txtEditor.getText());
                         tw.flush();
                     }
@@ -480,24 +515,55 @@ public class Analyzador extends javax.swing.JFrame {
         }
         return -1;
     }
-
+    
     private DefaultTableModel m;
 
     private boolean e = false;
     private File a = null;
-    private boolean c = false;
+    private boolean c = false;   
+    private SimuladorArbolBinario simulador = new SimuladorArbolBinario();
+
+    public void complementos() {
+        this.repintarArbol();
+        /*
+        this.lblCnodos.setText("");
+        this.lblCnodos.setText(this.simulador.CantidadNodos());
+
+        this.lblChojas.setText("");
+        this.lblChojas.setText(this.simulador.CantidadHojas());
+        this.lblVmenor.setText("");
+        this.lblVmenor.setText(this.simulador.menorValor());
+        this.lblVmayor.setText("");
+        this.lblVmayor.setText(this.simulador.mayorValor());
+         */
+    }
+
+    private void repintarArbol() {
+        this.jDesktopPane1.removeAll();
+        Rectangle tamaño = this.jInternalFrame2.getBounds();
+        this.jInternalFrame2 = null;
+        this.jInternalFrame2 = new JInternalFrame("V E N T A N A ", true);
+        this.jDesktopPane1.add(this.jInternalFrame2, JLayeredPane.DEFAULT_LAYER);
+        this.jInternalFrame2.setVisible(true);
+        this.jInternalFrame2.setBounds(tamaño);
+        this.jInternalFrame2.setEnabled(false);
+        pnlArbol=this.simulador.getDibujo();
+        this.jInternalFrame2.add(pnlArbol, BorderLayout.CENTER);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAbrir;
-    private javax.swing.JButton btnAnalizar;
+    private javax.swing.JMenuItem btnAna;
     private javax.swing.JMenuItem btnGuardar;
     private javax.swing.JMenuItem btnGuardarComo;
     private javax.swing.JMenuItem btnNuevo;
     private javax.swing.JMenuItem btnSalir;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JInternalFrame jInternalFrame2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenu mnuAnalizar;
     private javax.swing.JPanel pnlArbol;
     private javax.swing.JPanel pnlPrincipal;
