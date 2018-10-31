@@ -58,18 +58,36 @@ public class ArbodeExpresiones {
     public Nodo1 construirArbol(String expresion) {
        	StringTokenizer tokenizer;
 	String token;
+        int n=0;
 	//Nodo1 raiz = null;
 
 	tokenizer = new StringTokenizer(expresion, blanco+operadores, true);
 	while (tokenizer.hasMoreTokens()) {
 	    token = tokenizer.nextToken();
+            if(token.equals("-")||token.equals("+")||token.equals("*")||token.equals("=")){
+                n++;
+            }else if(n<0){
+                n=0;
+            }else{
+                n--;
+            }
+            if(n==2){
+                System.out.println(token);
+                token="";
+                n=0;
+            }else{
+                System.out.println(n);
+            }
 	    if (blanco.indexOf(token) >= 0) 
 		;               // Es un espacio en blanco, se ignora
 	    else if (operadores.indexOf(token) < 0) {
 		                // Es operando y lo guarda como nodo del arbol
                                 Nodo1 a;
 		pOperandos.push( new Nodo1(token));
-	    } else if(token.equals(")")) { // Saca elementos hasta encontrar (
+            System.out.println(token);
+            }
+            
+	     else if(token.equals(")")) { // Saca elementos hasta encontrar (
 		while (!pOperadores.empty() && !pOperadores.peek().equals("(")) {
 		    guardarSubArbol();
 		}
@@ -90,6 +108,8 @@ public class ArbodeExpresiones {
 	}
 	//Sacar todo lo que queda
 	raiz = (Nodo1)pOperandos.peek();
+                   
+                       
 	while (!pOperadores.empty()) {
 	    if (pOperadores.peek().equals("(")) {
 		pOperadores.pop();
