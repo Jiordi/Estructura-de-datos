@@ -31,7 +31,7 @@ public class ArbodeExpresiones {
 	//pOperandos = new Pila();
 	//pOperadores = new Pila();
 	blanco = " \t";
-	operadores = "=)+-*/%^(";  //acomodados por precedencia;
+	operadores = "=+-*/%^)(";  //acomodados por precedencia;
        
     }
 

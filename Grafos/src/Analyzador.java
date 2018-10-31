@@ -368,7 +368,11 @@ public class Analyzador extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuAnalizarActionPerformed
 
     private void btnAnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnaActionPerformed
-        analizar(txtEditor.getText());
+        try{
+            analizar(txtEditor.getText());
+        }catch(NullPointerException e){
+            
+        }
                 try {
           //  String dato = Integer.parseInt(JOptionPane.showInputDialog("Digite dato String para insertar:"));
               String dato = txtEditor.getText();
@@ -468,6 +472,10 @@ public class Analyzador extends javax.swing.JFrame {
         Object O[] = new Object[2];
         for (int i = 0; i < cad.length(); i++) {
             String c = cad.substring(i, i + 1);
+            if(c.equals("-")&&(cad.substring(i-1, i).equals("-")||cad.substring(i-1, i).equals("=")||cad.substring(i-1, i).equals("+")||cad.substring(i-1, i).equals("*"))){
+                c="";
+                pal+="-";
+            }
             if (esOp(c) == -1) {
                 pal += c;
             } else if (Grafos.esEntero(pal)) {
@@ -539,6 +547,8 @@ public class Analyzador extends javax.swing.JFrame {
     }
 
     private void repintarArbol() {
+       
+            
         this.jDesktopPane1.removeAll();
         Rectangle tamaño = this.jInternalFrame2.getBounds();
         this.jInternalFrame2 = null;
@@ -549,6 +559,7 @@ public class Analyzador extends javax.swing.JFrame {
         this.jInternalFrame2.setEnabled(false);
         pnlArbol=this.simulador.getDibujo();
         this.jInternalFrame2.add(pnlArbol, BorderLayout.CENTER);
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAbrir;

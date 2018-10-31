@@ -212,12 +212,15 @@ public class ArbolExpresionGrafico extends JPanel
     */
 private void dibujarArbol(Graphics2D g, Nodo1 n, int puntox, int puntoy, int yoffs) 
     {
-     if (n == null) 
+     try{
+         if (n == null) 
          return;
      
      Rectangle r = (Rectangle) posicionNodos.get(n);
      //g.draw(r);
-     g.drawOval(r.x, r.y, r.width, r.height);
+     
+         g.drawOval(r.x, r.y, r.width, r.height);
+     
      for(int i=0;i<n.getInformacion().length();i++){
          if(n.getInformacion().charAt(i)==';'){
              n.setInformacion(n.getInformacion().substring(0, i));
@@ -232,7 +235,9 @@ private void dibujarArbol(Graphics2D g, Nodo1 n, int puntox, int puntoy, int yof
      
      dibujarArbol(g, n.getNodoIzquierdo(), (int)(r.x + r.width/2), r.y + r.height, yoffs);
      dibujarArbol(g, n.getNodoDerecho(), (int)(r.x + r.width/2), r.y + r.height, yoffs);
-     
+     }catch (NullPointerException e){
+         
+     }
    }
     
    /**
