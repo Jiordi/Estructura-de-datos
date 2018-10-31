@@ -85,6 +85,6 @@ public class Ordenacion {
 }//class
 
 //proyecto final Jtabla que ordena por tipo marca modelo año color y precio almacenados de un archivo
-//Metodos 4 metodos Burbuja QuickSort
+//Metodos 4 metodos Burbuja QuickSort ShellSort Radix
 //Orden Ascendente o Descendente
 //Tiempo que tardo en ordenarlo
